@@ -16,18 +16,22 @@
 
 module Language.TypeScript.Types where
 
-import qualified Data.Map as M
-import Data.Monoid
-import Data.Data (Typeable, Data)
+import qualified Data.Map                      as M
+import           Data.Monoid
+import           Data.Data                      ( Typeable
+                                                , Data
+                                                )
 
 data Comment = Comment
   { commentText     :: [String]
   , commentOther    :: [(String, String)]
   } deriving (Show, Data, Typeable)
 
+instance Semigroup Comment where
+  (<>) (Comment ts os) (Comment ts' os') = Comment (ts ++ ts') (os ++ os')
+
 instance Monoid Comment where
   mempty = Comment [] []
-  mappend (Comment ts os) (Comment ts' os') = Comment (ts ++ ts') (os ++ os')
 
 type CommentPlaceholder = Either (Int, Int) Comment
 

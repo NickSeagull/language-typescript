@@ -17,7 +17,7 @@ module Language.TypeScript.Pretty (
 ) where
 
 import Language.TypeScript.Types
-import Text.PrettyPrint
+import Text.PrettyPrint hiding ((<>))
 
 renderDeclarationSourceFile :: [DeclarationElement] -> String
 renderDeclarationSourceFile = render . declarationSourceFile
